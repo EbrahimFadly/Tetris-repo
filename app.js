@@ -1,11 +1,15 @@
     const grid = document.querySelector('.grid')
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const dscore = document.querySelector('#sh')
-    const sbutton = document.querySelector('#start')
+    const sbutton = document.getElementById('start')
     const rbutton = document.getElementById('reset')
+    const playerName = document.getElementById('playerName')
     const width = 10
     let timer = null
     let score = 0
+    let final_score = 0
+    let gameover = false
+    let player_Name = ""
     // let speed = 1000
 //shapes   
     const Lshape = [
@@ -153,10 +157,15 @@
         defaultFall()
     }
     function startNpause() {
-        if (timer) {
+        if (playerName.value == "") {
+            alert("Please enter your name before starting the game.")
+        }else if(timer) {
+            playerName.readOnly = true
             clearInterval(timer)
             timer = null
         }else{
+            playerName.readOnly = true
+            document.addEventListener('keyup', control)
             draw()
             timer = setInterval(defaultFall, 1000)
         }
@@ -188,6 +197,11 @@
             dscore.innerHTML =  "Game over"
             clearInterval(timer)
             document.removeEventListener("keyup", control)
+            playerName.readOnly = false
+            gameover = true
+            final_score = score
+            score = 0
+            /*create code to take player name and final_score and store inside DB*/
         }
     }
     function highlight() {
@@ -201,13 +215,27 @@
         }
     }
     function restart(event) {
-        if (event.keyCode === 82) {
-            rbutton.click()
-        }
-    }
-    function pause(event) {
-        if (event.keyCode === 83) {
-            startNpause()
+        if(gameover){
+            for (let i = 0; i < 199; i+=width) {
+                const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
+                    row.forEach(element => {
+                        squares[element].classList.remove('Taken')
+                        squares[element].classList.remove('shape')
+                        squares[element].classList.remove('highlighted')
+                        squares[element].classList.remove('red')
+                        squares[element].classList.remove('orange')
+                        squares[element].classList.remove('yellow')
+                        squares[element].classList.remove('pink')
+                        squares[element].classList.remove('green')
+                    })
+                    const deletedsquares = squares.splice(i, 10)
+                    squares = deletedsquares.concat(squares)
+                    squares.forEach(element => grid.appendChild(element))              
+            }
+                    gameover = false
+                    dscore.innerHTML = "Score : 0"
+        }else{
+            alert("You cant restart unless you lose")
         }
     }
     /*function addspeed() {
@@ -215,9 +243,5 @@
             speed += 10000
         }
     }*/
-    document.addEventListener('keyup', pause)
-    document.addEventListener('keyup', restart)
-    document.addEventListener('keyup', control)
-    sbutton.addEventListener('click',startNpause)
-
-
+    sbutton.addEventListener('click', startNpause)
+    rbutton.addEventListener('click', restart)

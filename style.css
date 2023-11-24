@@ -7,6 +7,7 @@ body{
     background-image: radial-gradient(rgb(28, 226, 240) 70%, rgb(18, 104, 218));
     background-repeat: no-repeat;
     padding-block: 40px;
+    overflow: hidden;
 }
 
 #Game{
@@ -62,3 +63,61 @@ body{
 .pink{background-color: rgb(248, 153, 169);}
 .green{background-color: greenyellow;}
 
+#playerNameForm {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  input {
+    padding: 8px;
+    font-size: 14px;
+    width: 200px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+
+  #gameAndPlayerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+  }
+  
+  #sideContainer {
+    width: 10%; 
+    padding: 20px;
+    background-image: radial-gradient(rgb(73, 230, 241) 85%, rgb(177, 204, 243));
+  } 
+  
+  #buttonContainer {
+    clear: both;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .btn-container {
+    display: inline-block;
+    gap: 10px;
+  }
+  
+  
